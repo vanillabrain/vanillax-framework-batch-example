@@ -1,0 +1,68 @@
+plugins {
+    id 'groovy'
+    id 'java'
+}
+
+group 'vanillax-framework-batch-example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceSets {
+    main{
+        groovy{
+            srcDir 'src/main/groovy'
+            srcDir 'src/main/scripts'
+        }
+    }
+}
+
+// 소스 인코딩 지정방법 1
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+// 소스 인코딩 지정밥법 2
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    def tomcatVersion = '8.5.41'
+
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    compile 'vanillax.framework:vanillax-batch:1.0.7' //jcenter()
+    compile 'org.jsoup:jsoup:1.8.3'
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    testCompile "org.apache.tomcat:tomcat-catalina:${tomcatVersion}"
+    testCompile "org.apache.tomcat:tomcat-coyote:${tomcatVersion}"
+    testCompile "org.apache.tomcat:tomcat-jasper:${tomcatVersion}"
+    testCompile "org.apache.tomcat:tomcat-jdbc:${tomcatVersion}"
+
+    //testCompile "mysql:mysql-connector-java:5.1.45"
+    testCompile 'org.xerial:sqlite-jdbc:3.28.0'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testCompile 'org.apache.logging.log4j:log4j-core:2.7'
+    testCompile 'org.apache.logging.log4j:log4j-api:2.7'
+    testCompile 'org.apache.logging.log4j:log4j-jul:2.7'
+
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+}
+
+
+task copyRuntimeLibs(type: Copy) {
+    into "lib"
+    from configurations.runtime
+}
+
+task copyScripts(type: Copy) {
+    from 'src/main/scripts'
+    into '/webapp/WEB-INF/scripts'
+    include '**/*.groovy'
+}

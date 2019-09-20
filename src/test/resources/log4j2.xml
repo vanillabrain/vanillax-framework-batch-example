@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyyMMdd HH:mm:ss.SSS} [%t] %-5level %logger{36} %M - %msg%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+            <!--
+            <AppenderRef ref="RollingFile"/>
+            -->
+        </Root>
+        <logger level="WARN" name="org.apache.catalina">
+        </logger>
+        <logger level="DEBUG" name="vanilla">
+        </logger>
+        <logger level="DEBUG" name="cda">
+        </logger>
+        <logger level="DEBUG" name="service">
+        </logger>
+        <logger level="FATAL" name="org.apache.tomcat.util.scan.StandardJarScanner">
+        </logger>
+    </Loggers>
+</Configuration>
