@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest
 class LoginFilter extends FilterBase {
     @Autowired
     UsersDAO usersDAO
-    private def ignoreSessionUrlList = ['/user/login', '/user/logout', '/fileDownload', '/fileUpload','/sample','/ocr']
+    private def ignoreSessionUrlList = ['/user/login', '/user/logout', '/fileDownload', '/fileUpload','/sample','/admin/scheduleLog']
 
     @Override
     Map<String, Object> preprocess(Map<String, Object> param) throws Exception {
@@ -26,26 +26,24 @@ class LoginFilter extends FilterBase {
             def ignoreUrl = ignoreUrl(request.getPathInfo())
             def userinfo = null;
             def token = request.getHeader("X-Token")
-            if(token == 'developer-user1-token001'){
+            if(ignoreUrl){
+                //Do Nothing
+            }else if(token == 'developer-user1-token001'){
                 //개발모드일경우 정해진 사용자를 강제로 입력한다.
-                userinfo = [userId:'user1', email:'hong@ink.co.kr', userName:'홍길동']
+                userinfo = [userId:'user1', email:'hong@mycompany.com', userName:'홍길동']
             }else{
                 int tokenTimeout = ConfigHelper.getInt("token.timeout", 300)
                 def one = selectUserByToken([token:token, tokenTimeout:tokenTimeout])
                 if(one){
                     userinfo = one
-                    if(ignoreUrl){
-                        //Do Nothing
-                    }else if(one.tokenValidYn == 'Y' && one.token && one.token == token){
+                    if(one.tokenValidYn == 'Y' && one.token && one.token == token){
                         //OK. 정상적인 세션인경우
                         updateUsersTokenUpdateDateByToken([token:token, _userId:userinfo.userId]) // 토큰갱신시간을 변경해준다
                     }else{
                         throw new BaseException("ERR1100","로그인 오류","유효하지않은 토큰입니다",null)
                     }
                 }else{
-                    if(!ignoreUrl){
-                        throw new BaseException("ERR1100","로그인 오류","유효하지않은 토큰입니다",null)
-                    }
+                    throw new BaseException("ERR1100","로그인 오류","유효하지않은 토큰입니다",null)
                 }
             }
             //입력데이터에 사용자정보를 추가해준다. SQL에서 사용하기 위함이다

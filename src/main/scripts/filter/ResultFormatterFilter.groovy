@@ -19,6 +19,14 @@ class ResultFormatterFilter extends FilterBase {
     @Override
     public Object postprocess(Object result) throws Exception {
         def resultForm = [:]
+
+        if(result instanceof Map){
+            Map m = (Map)result
+            m.remove('_response')
+            m.remove('_input')
+            m.remove('_request')
+        }
+
         if(result instanceof List){
             resultForm['resultList'] = result
         }else{
