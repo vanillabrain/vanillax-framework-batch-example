@@ -3,6 +3,7 @@
 /.gradle/
 /.idea/
 /tomcat.8080/
+/db/vanilla.db
 
 # User-specific stuff
 .idea/**/workspace.xml

@@ -1,10 +1,10 @@
 package vanillax.batch.example;
 
-import vanillax.batch.example.servlet.FileUploadDownloadServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import vanillax.framework.webmvc.servlet.ConfigInitBaseServlet;
+import vanillax.framework.webmvc.servlet.FileUploadDownloadServlet;
 import vanillax.framework.webmvc.servlet.JsonServlet;
 import vanillax.framework.webmvc.servlet.RestServlet;
 

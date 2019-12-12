@@ -29,7 +29,7 @@ import vanillax.framework.batch.action.ActionBase
 @Log4j2
 class Sample01 extends ActionBase {
      def process(obj) {
-         def url = 'http://demo.3hand.io/tas-web/test/aa.jsp'
+         def url = 'http://www.slrclub.com/'
         log.info "request url : $url"
 
          def WEBVIEW_MOBILE_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E188a Safari/601.1"
@@ -43,9 +43,6 @@ class Sample01 extends ActionBase {
                 .timeout(5000)
                 .followRedirects(true)
 
-        if (url.contains("ddanzi.com") || url.contains("hungryboarder.com"))
-            conn.header("Accept-Encoding", "")
-
         conn.request().method(Connection.Method.GET)
         Document doc = conn.get()
 
@@ -57,7 +54,5 @@ class Sample01 extends ActionBase {
 
          def html = doc.outerHtml()
          log.info(html)
-
-
     }
 }
