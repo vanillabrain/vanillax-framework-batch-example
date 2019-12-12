@@ -16,7 +16,7 @@
 
 package crawler
 
-import groovy.util.logging.Log4j2
+import groovy.util.logging.Log
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -26,7 +26,7 @@ import vanillax.framework.batch.action.ActionBase
 /**
  *W
  */
-@Log4j2
+@Log
 class Sample01 extends ActionBase {
      def process(obj) {
          def url = 'http://www.slrclub.com/'
@@ -54,5 +54,6 @@ class Sample01 extends ActionBase {
 
          def html = doc.outerHtml()
          log.info(html)
+
     }
 }
