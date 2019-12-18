@@ -36,7 +36,7 @@ dependencies {
     def tomcatVersion = '8.5.41'
 
     compile 'org.codehaus.groovy:groovy-all:2.4.7'
-    compile 'vanillax.framework:vanillax-batch:1.0.11' //jcenter()
+    compile 'vanillax.framework:vanillax-batch:1.0.12' //jcenter()
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
 
